@@ -71,10 +71,10 @@ _install_zlib() {
     _zlib_ver="$(wget -qO- 'https://www.zlib.net/' | grep -i 'HREF="zlib-[0-9].*\.tar\.' | sed 's|"|\n|g' | grep '^zlib-' | grep -ivE 'alpha|beta|rc' | sed -e 's|zlib-||g' -e 's|\.tar.*||g' | sort -V | uniq | tail -n 1)"
     wget -q -c -t 9 -T 9 "https://zlib.net/zlib-${_zlib_ver}.tar.xz"
     sleep 1
-    tar -xof "zlib-${_zlib_ver}.tar.xz"
+    tar -xof zlib-*.tar*
     sleep 1
     rm -f zlib-*.tar*
-    cd "zlib-${_zlib_ver}"
+    cd zlib-*
     ./configure --prefix=/usr --libdir=/usr/lib/x86_64-linux-gnu --includedir=/usr/include --sysconfdir=/etc --64
     sleep 1
     make all
@@ -109,9 +109,9 @@ export LDFLAGS
 _ssl_ver="$(wget -qO- 'https://www.openssl.org/source/' | grep '1.1.1' | sed 's/">/ /g' | sed 's/<\/a>/ /g' | awk '{print $3}' | grep '\.tar.gz' | sed -e 's|openssl-||g' -e 's|\.tar.*||g' | sort -V | tail -n 1)"
 wget -q -c -t 9 -T 9 "https://www.openssl.org/source/openssl-${_ssl_ver}.tar.gz"
 sleep 1
-tar -xof "openssl-${_ssl_ver}.tar.gz"
+tar -xof openssl-*.tar*
 sleep 1
-rm -f openssl*.tar.gz
+rm -f openssl-*.tar*
 cd openssl-*
 sed '/define X509_CERT_FILE .*OPENSSLDIR "/s|"/cert.pem"|"/certs/ca-certificates.crt"|g' -i include/internal/cryptlib.h
 sed '/install_docs:/s| install_html_docs||g' -i Configurations/unix-Makefile.tmpl
