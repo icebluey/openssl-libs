@@ -5,7 +5,7 @@ umask 022
 set -e
 cd "$(dirname "$0")"
 systemctl start docker
-sleep 5
+sleep 2
 echo
 cat /proc/cpuinfo
 echo
@@ -35,6 +35,8 @@ sleep 2
 /bin/rm -fr /var/lib/docker/* /var/lib/containerd/* /mnt/docker-data/*
 
 # OpenSSL 3.3
+systemctl start docker
+sleep 2
 if [ "$(cat /proc/cpuinfo | grep -i '^processor' | wc -l)" -gt 1 ]; then
     #docker run --cpus="$(cat /proc/cpuinfo | grep -i '^processor' | wc -l).0" --rm --name al8 -itd almalinux:8 bash
     docker run --cpus="$(cat /proc/cpuinfo | grep -i '^processor' | wc -l).0" --rm --name al8 -itd quay.io/almalinuxorg/almalinux:8 bash
@@ -59,6 +61,8 @@ sleep 2
 /bin/rm -fr /var/lib/docker/* /var/lib/containerd/* /mnt/docker-data/*
 
 # OpenSSL 3.4
+systemctl start docker
+sleep 2
 if [ "$(cat /proc/cpuinfo | grep -i '^processor' | wc -l)" -gt 1 ]; then
     #docker run --cpus="$(cat /proc/cpuinfo | grep -i '^processor' | wc -l).0" --rm --name al8 -itd almalinux:8 bash
     docker run --cpus="$(cat /proc/cpuinfo | grep -i '^processor' | wc -l).0" --rm --name al8 -itd quay.io/almalinuxorg/almalinux:8 bash
