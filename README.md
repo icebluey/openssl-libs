@@ -33,6 +33,14 @@ ubuntu:
 /etc/ssl/certs
 /etc/ssl/cert.pem
 
+# ls -la /etc/ssl 
+total 36
+drwxr-xr-x 4 root root    53 Feb 15 09:37 .
+drwxr-xr-x 1 root root  4096 Feb 15 09:37 ..
+drwxr-xr-x 2 root root 12288 Feb 15 09:37 certs
+-rw-r--r-- 1 root root 12419 Aug 20 17:27 openssl.cnf
+drwx------ 2 root root     6 Aug 20 17:27 private
+
 # ls -la /etc/ssl/certs
 total 464
 drwxr-xr-x 2 root root  12288 Feb 15 09:37  .
