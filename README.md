@@ -125,7 +125,8 @@ lrwxrwxrwx 1 root root 16 Aug 21  2024 certs -> ../pki/tls/certs
 [root@ee4c17fc9578 ~]# 
 
 # create /etc/ssl/cert.pem
-if [ -d /etc/ssl ] && [ ! -e /etc/ssl/cert.pem ] && [ -e /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem ]; then ln -sv /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem /etc/ssl/cert.pem; fi
+#if [ -d /etc/ssl ] && [ ! -e /etc/ssl/cert.pem ] && [ -e /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem ]; then ln -sv /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem /etc/ssl/cert.pem; fi
 #if [ -d /etc/ssl ] && [ ! -e /etc/ssl/cert.pem ] && [ -e /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem ]; then ln -sv ../pki/ca-trust/extracted/pem/tls-ca-bundle.pem /etc/ssl/cert.pem; fi
+if [ -e /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem ] && [ ! -e /etc/ssl/cert.pem ]; then ([ -e /etc/ssl ] || install -m 0755 -d /etc/ssl) && ln -sv /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem /etc/ssl/cert.pem; fi
 
 ```
