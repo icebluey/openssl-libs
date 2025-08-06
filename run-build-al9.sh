@@ -25,7 +25,7 @@ docker exec al9 yum install -y wget bash
 docker exec al9 /bin/bash -c 'ln -svf bash /bin/sh'
 docker exec al9 /bin/bash -c 'rm -fr /tmp/*'
 docker cp al al9:/home/
-docker exec al9 /bin/bash /home/al/9/install-kernel.sh
+#docker exec al9 /bin/bash /home/al/9/install-kernel.sh
 docker exec al9 /bin/bash /home/al/9/.preinstall_al9
 docker exec al9 /bin/bash /home/al/build-openssl-libs-el.sh '3.0'
 mkdir -p /tmp/_output_assets
@@ -79,7 +79,7 @@ docker exec al9 yum install -y wget bash
 docker exec al9 /bin/bash -c 'ln -svf bash /bin/sh'
 docker exec al9 /bin/bash -c 'rm -fr /tmp/*'
 docker cp al al9:/home/
-docker exec al9 /bin/bash /home/al/9/install-kernel.sh
+#docker exec al9 /bin/bash /home/al/9/install-kernel.sh
 docker exec al9 /bin/bash /home/al/9/.preinstall_al9
 docker exec al9 /bin/bash /home/al/build-openssl-libs-el.sh '3.3'
 mkdir -p /tmp/_output_assets
