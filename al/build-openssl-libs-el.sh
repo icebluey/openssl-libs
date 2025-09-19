@@ -100,7 +100,7 @@ _build_brotli() {
     if [[ -f bootstrap ]]; then
         ./bootstrap
         rm -fr autom4te.cache
-        LDFLAGS=''; LDFLAGS="${_ORIG_LDFLAGS}"' -Wl,-rpath,\$$ORIGIN'; export LDFLAGS
+        LDFLAGS=''; LDFLAGS="${_ORIG_LDFLAGS}"' -Wl,--disable-new-dtags -Wl,-rpath,\$$ORIGIN'; export LDFLAGS
         ./configure \
         --build=x86_64-linux-gnu --host=x86_64-linux-gnu \
         --enable-shared --disable-static \
@@ -109,7 +109,7 @@ _build_brotli() {
         rm -fr /tmp/brotli
         make install DESTDIR=/tmp/brotli
     else
-        LDFLAGS=''; LDFLAGS="${_ORIG_LDFLAGS}"' -Wl,-rpath,\$ORIGIN'; export LDFLAGS
+        LDFLAGS=''; LDFLAGS="${_ORIG_LDFLAGS}"' -Wl,--disable-new-dtags -Wl,-rpath,\$ORIGIN'; export LDFLAGS
         cmake \
         -S "." \
         -B "build" \
@@ -200,7 +200,7 @@ _build_openssl() {
     sed '/install_docs:/s| install_html_docs||g' -i Configurations/unix-Makefile.tmpl
 
     if [ "${_major}.${_minor}" = "3.0" ]; then
-        LDFLAGS=''; LDFLAGS='-Wl,-z,relro -Wl,--as-needed -Wl,-z,now -Wl,--disable-new-dtags -Wl,-rpath,\$$ORIGIN'; export LDFLAGS
+        LDFLAGS=''; LDFLAGS="${_ORIG_LDFLAGS}"' -Wl,--disable-new-dtags -Wl,-rpath,\$$ORIGIN'; export LDFLAGS
         HASHBANGPERL=/usr/bin/perl
         ./Configure \
         --prefix=/usr \
@@ -221,8 +221,7 @@ _build_openssl() {
         _build_brotli
         _build_zstd
         cd "${_current_dir}"
-
-        LDFLAGS=''; LDFLAGS='-Wl,-z,relro -Wl,--as-needed -Wl,-z,now -Wl,--disable-new-dtags -Wl,-rpath,\$$ORIGIN'; export LDFLAGS
+        LDFLAGS=''; LDFLAGS="${_ORIG_LDFLAGS}"' -Wl,--disable-new-dtags -Wl,-rpath,\$$ORIGIN'; export LDFLAGS
         HASHBANGPERL=/usr/bin/perl
         ./Configure \
         --prefix=/usr \
@@ -241,7 +240,6 @@ _build_openssl() {
         no-sm2 no-sm2-precomp no-sm3 no-sm4 \
         shared linux-x86_64 '-DDEVRANDOM="\"/dev/urandom\""'
     fi
-
     perl configdata.pm --dump
     make -j$(nproc --all) all
     rm -fr /tmp/openssl
