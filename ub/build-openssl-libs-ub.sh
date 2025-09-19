@@ -242,7 +242,6 @@ _build_openssl() {
         no-sm2 no-sm2-precomp no-sm3 no-sm4 \
         shared linux-x86_64 '-DDEVRANDOM="\"/dev/urandom\""'
     fi
-
     perl configdata.pm --dump
     make -j$(nproc --all) all
     rm -fr /tmp/openssl
